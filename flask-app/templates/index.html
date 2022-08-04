@@ -1,0 +1,3217 @@
+<!DOCTYPE html>
+    <html class="main_page">
+      <script src="../static/js/modernizr.js"></script> 
+
+      <script src="https://d3js.org/d3.v4.js"></script>
+      <meta name="HandheldFriendly" content="true">
+      <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+      
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+      <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js">     </script>
+      <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-radar.min.js"></script>
+      <link rel="stylesheet" href="../static/css/styles.css">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <link rel="stylesheet" href="../static/css/reset.css">
+      <link rel="stylesheet" href="../static/css/style.css"> 
+      <link rel="stylesheet" href="../static/css/design.css">
+      <link rel="stylesheet" href="../static/js/MoviesEmotionMap.js">
+      <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <div><img src="../static/img/mapMovieLogo.png" class="img"></div>
+    <div><img src="../static/img/keys.svg" class="keys"></div>
+    <div><img src="../static/img/mainlegend.svg" class="mainlegend" id="mainlegend"></div>
+    <div><img src="../static/img/angerlegend.svg" class="angerlegend" id="angerlegend"></div>
+    <div><img src="../static/img/anticipationlegend.svg" class="anticipationlegend" id="anticipationlegend"></div>
+    <div><img src="../static/img/disgustlegend.svg" class="disgustlegend" id="disgustlegend"></div>
+    <div><img src="../static/img/fearlegend.svg" class="fearlegend" id="fearlegend"></div>
+    <div><img src="../static/img/joylegend.svg" class="joylegend" id="joylegend"></div>
+    <div><img src="../static/img/sadnesslegend.svg" class="sadnesslegend" id="sadnesslegend"></div>
+    <div><img src="../static/img/surpriselegend.svg" class="surpriselegend" id="surpriselegend"></div>
+    <div><img src="../static/img/trustlegend.svg" class="trustlegend" id="trustlegend"></div>
+    <div><button id="clear_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_anger_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_disgust_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_anticipation_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_fear_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_joy_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_sadness_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_surprise_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+    <div><button id="clear_trust_radar" style="display:none;"><img src="../static/img/radar.png" height ="40" width="40" /></button></div>
+   
+    <div id="my_dataviz" >
+    </div> 
+    
+    <div id="container" style="display:none"></div>
+     <!-- anger container -->
+     <div id="anger_container" style="display:none"></div>
+    <!-- anticipation container -->
+    <div id="anticipation_container" style="display:none"></div>
+    <!-- disgust container -->
+    <div id="disgust_container" style="display:none"></div>
+    <!-- fear container -->
+    <div id="fear_container" style="display:none"></div>
+    <!-- joy container -->
+    <div id="joy_container" style="display:none"></div>
+    <!-- sadness container -->
+    <div id="sadness_container" style="display:none"></div>
+    <!-- surprise container -->
+    <div id="surprise_container" style="display:none"></div>
+    <!-- trust container -->
+    <div id="trust_container" style="display:none"></div>
+    <div id="chart" style="display:none" >
+    </p>
+    </p>
+  </p>
+      <div id="under"><p></p></div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <div>
+      <b class="fear2_text"><span id="fear_num"> </span></b>
+      <b class="sadness2_text"><span id="sadness_num"> </span></b>
+      <b class="disgust2_text"><span id="disgust_num"> </span></b>
+      <b class="joy2_text"><span id="joy_num"> </span></b>
+      <b class="anticipation2_text"><span id="anticipation_num"> </span></b>
+      <b class="trust2_text"><span id="trust_num"> </span></b>
+      <b class="surprise2_text"><span id="surprise_num"> </span></b>
+      <b class="anger2_text"><span id="anger_num"> </span></b>
+      </div>
+  <div id="under"><p></p></div>
+    </div> 
+
+    <!-- anger chart -->
+    <div id="anger_chart" style="display:none">
+        <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+        <b class="anger_title" >Dominant emotion: Anger</b>
+    </div> 
+   
+    <!-- anticipation chart -->
+    <div id="anticipation_chart" style="display:none">
+        <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+        <b class="anticipation_title" >Dominant emotion: Anticipation</b>
+    </div> 
+    
+    <!-- joy chart -->
+    <div id="joy_chart" style="display:none">
+        <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+        <b class="joy_title" >Dominant emotion: Joy</b>
+    </div> 
+    
+    <!-- trust chart -->
+    <div id="trust_chart" style="display:none">
+         <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+         <b class="trust_title" >Dominant emotion: Trust</b>
+    </div> 
+    
+    <!-- sadness chart -->
+    <div id="sadness_chart" style="display:none">
+        <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+        <b class="sadness_title" >Dominant emotion: Sadness</b>
+    </div> 
+    
+    <!-- surprisechart -->
+    <div id="surprise_chart" style="display:none">
+         <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+         <b class="surprise_title" >Dominant emotion: Surprise</b>
+    </div> 
+    
+    <!-- disgust chart -->
+    <div id="disgust_chart" style="display:none">
+         <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+         <b class="disgust_title" >Dominant emotion: Disgust</b>
+    </div> 
+   
+    <!-- fear chart -->
+    <div id="fear_chart" style="display:none"> 
+          <button class="back2" onclick="back()"><img src="../static/img/back.png" height ="30" width="30"/></button>
+          <b class="fear_title" >Dominant emotion: Fear</b>
+    </div> 
+    
+    <style>
+      .selected {
+      fill: none;
+      }
+    </style>
+    
+    
+    
+    <script type="text/javascript">
+    let count = 0, anger_count = 0,anticioation_count = 0,joy_count = 0 , fear_count = 0 , sadness_count = 0,surprise_count = 0,trust_count = 0,
+    anticipation_count = 0,disgust_count = 0, anger_emotion_num = 0, anticioation_emotion_num = 0, joy_emotion_num = 0, fear_emotion_num = 0,
+    sadness_emotion_num = 0, surprise_emotion_num = 0, trust_emotion_num = 0, anticipation_emotion_num = 0, disgust_emotion_num = 0, movie1,movie2,movie3;
+   
+    //main radar 
+    var mainchart = anychart.radar();
+    mainchart .credits(false);
+    var legend=mainchart .legend();
+
+
+    // set the dimensions and margins of the graph
+    var margin = {top: -140, right: 330, bottom: 200, left:60},
+    width = 1250 - margin.left - margin.right,
+    height = 850- margin.top - margin.bottom;
+    
+      var FCollide = d3.forceCollide(function (d) { 
+        switch(d.emotion_color) {
+  case '1':return anger_emotion_num/1200; break;
+  case '2': return anticioation_emotion_num/1200; break;
+  case '3': return disgust_emotion_num/1200;break;
+  case '4':  return fear_emotion_num/1200;break;
+  case '5': return joy_emotion_num/1200;break;
+  case '6': return sadness_emotion_num/1200;break;
+  case '7': return surprise_emotion_num/1200;break;
+  default:return trust_emotion_num/1200;break;
+    // code block
+}
+  })
+    var sim = d3.forceSimulation()
+        .force("x", d3.forceX(width / 2.8).strength(0.6))
+        .force("y", d3.forceY(height / 5).strength(0.6))
+        .force("collide", FCollide)
+
+    var RScale = d3.scaleSqrt()
+    
+    var margin_svg2 = {top: 0, right: 365, bottom: 2, left:335},
+    width_svg2 = 1250 - margin_svg2.left - margin_svg2.right,
+    height_svg2 = 400- margin_svg2.top - margin_svg2.bottom;
+
+   
+
+
+    var svg2 = d3.select("#chart")
+        .append("svg")
+        .attr("class", "bubbles2")
+        .attr("width", width_svg2+ margin_svg2.left + margin_svg2.right)
+        .attr("height", height_svg2 + margin_svg2.top + margin_svg2.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_svg2.left + "," + margin_svg2.top + ")");
+     
+      
+    
+        var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    help("../static/new_csv/new_data_cluster_emotion.csv");
+
+
+    function help(csv_path){
+
+        d3.csv(csv_path, function(data) {
+
+
+          svg.append("svg")
+             .attr("width", width + margin.left + margin.right)
+             .attr("height", height + margin.top + margin.bottom)
+             .append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+             
+          svg.attr("clip-path", "url(#clip)");
+          var filter = svg.append("defs")
+      .append("filter")
+      .attr("id", "blur")
+      .append("feGaussianBlur")
+      .attr("stdDeviation", 1); 
+          // Add X axis
+          var x = d3.scaleLinear()
+              .domain([-10,0])
+              .range([ 0, width ]);
+
+          var xAxis = svg.append("g")
+             .attr("class", "myXaxis")
+             .attr("transform", "translate(0," + height + ")")
+             .attr("display", "none")
+             .call(d3.axisBottom(x))
+             .attr("opacity", "0");
+
+          svg.append("g")
+             .attr("class", "myXaxis1")
+             .attr("transform", "translate(0," + height + ")")
+             .attr("display", "none")
+             .call(d3.axisBottom(x))
+             .attr("opacity", "0");
+
+
+          // Add Y  axis
+          var y = d3.scaleLinear()
+             .domain([-100,100])
+             .range([ height, 0]);
+          
+          var yAxis =  svg.append("g")
+             .attr("display", "none")
+             .call(d3.axisLeft(y));
+
+          // Add a scale for bubble size
+          var z = d3.scaleLinear()
+             .domain([200000, 1310000000])
+             .range([ 4, 40]);
+
+          // Add a clipPath: everything out of this area won't be drawn.
+             var clip = svg.append("defs").append("svg:clipPath")
+              .attr("id", "clip")
+              .append("svg:rect")
+              .attr("width", width + margin.left + margin.right)
+             .attr("height", height + margin.top + margin.bottom)
+              .attr("x", -100)
+              .attr("y", -100);
+
+
+          // Add a scale for bubble color
+          var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+            
+          var tooltip = d3.select("#my_dataviz")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+              
+              svg.append('g')
+             .selectAll("dot")
+             .data(data)
+             .enter()
+             .append("circle")
+             .attr("class", "bubbles")
+             .attr("cx", function (d) { return x(d.tsne_glyph_x); } )
+             .attr("cy", function (d) { return y(d.tsne_glyph_y); } )
+             .attr("r", function (d) { 
+            if(d.name=="Harry Potter and the Deathly Hallows: Part 2") return 20;
+             else if(d.name=="You See Me") return 20;
+             else if(d.name=="Kung Fury") return 20;
+             else if(d.name=="The Mist") return 20;
+             else if(d.name=="It's Such a Beautiful Day") return 20;
+             else if(d.name=="Disorder in the Court") return 20;
+             else if(d.name=="Amadeus") return 20;
+             else if(d.name=="Spotlight") return 20;
+             else return 5;} )
+             
+             .style("fill", function (d) { 
+  //  anger->anticipation->disgust->fear->joy->sadness->surprise->trust
+               if(d.emotion_color == '1') anger_emotion_num++;
+               if(d.emotion_color == '2') anticioation_emotion_num++;
+               if(d.emotion_color == '3') disgust_emotion_num++;
+               if(d.emotion_color == '4') fear_emotion_num++;
+               if(d.emotion_color == '5') joy_emotion_num++;
+               if(d.emotion_color == '6') sadness_emotion_num++;
+               if(d.emotion_color == '7') surprise_emotion_num++;
+               if(d.emotion_color == '8') trust_emotion_num++;
+               return myColor(d.emotion_color);
+              
+              } )
+             .on("mouseover", showTooltip )
+             .on("mousemove", moveTooltip )
+             .on("mouseleave", hideTooltip )
+             .on('click', function(dx) {
+                tooltip
+                .transition()
+                .duration(0)
+                .style("opacity", 0)
+                // help2(data);
+                document.getElementById("container").style.display = 'block';
+                document.getElementById("clear_radar").style.display='block';
+                anychart.onDocumentReady(function (d) {
+                   if(count <3){
+                   count++;
+                  let emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+                  let emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+                  let emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+                  let emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+                  let emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+                  let emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+                  let emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+                  let emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+                  var data1 = [
+                        {x: "anger", value: emotion1},
+                        {x: "anticipation", value: emotion2},
+                        {x: "disgust", value: emotion3},
+                        {x: "fear", value: emotion4},
+                        {x: "joy", value: emotion5},
+                        {x: "sadness", value: emotion6},
+                        {x: "surprise", value: emotion7},
+                        {x: "trust", value: emotion8},
+                    ]; 
+                  var movie_name = dx.name;
+                  var movie_id = dx.movie_id;
+                  var movie_rating = dx.movie_rating;
+                  var movie_genres = dx.movie_genres;
+                  var movie_directors= dx.movie_directors;
+                  var movie_writers= dx.movie_writers;
+                  var movie_stars= dx.movie_stars;
+                  var stringg ="<br/><img src= '../static/img/rating_2.svg'+ height ='40' width='80' />";
+                  let rating_stars="";
+            let title = dx.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(dx.movie_rating== 1)
+            rating_stars = dx.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(dx.movie_rating== 2)
+            rating_stars = dx.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(dx.movie_rating== 3)
+            rating_stars = dx.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(dx.movie_rating== 4)
+            rating_stars = dx.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(dx.movie_rating== 5)
+            rating_stars = dx.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+
+         
+            let s  =  'Movie '+count+'\n\nName: '+movie_name.substring(0,25)+'\n'+movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ movie_genres +'\n'+'\n'+'Directors: ' +movie_directors.substring(0,20)+'\n'+movie_directors.substring(20,51)+'\n'+movie_directors.substring(51,)+'\n'+
+                           'Writers: '+movie_writers.substring(0,22)+'\n'+movie_writers.substring(22,53)+'\n'+movie_writers.substring(53,)+'\n'+'\n'+'Stars: '+movie_stars.substring(0,24)+'\n'+movie_stars.substring(24,55)+'\n'+movie_stars.substring(55,)+'\n';
+                        var title2 =   mainchart .title("Movies Details\n").legend(true); 
+    mainchart .yScale()
+    .minimum(0)
+    .maximum(1)
+    .ticks({'interval':8});
+    var title2 = mainchart.title();
+title2.enabled(true);
+title2.padding(5);
+title2.fontColor("#336699");
+title2.fontSize(18);
+title2.fontWeight(600);
+mainchart.tooltip().padding().left(20);
+mainchart.tooltip().background().fill("#ccccff");
+mainchart.tooltip().format("{{value}}");
+
+    mainchart .yGrid().palette(["gray 0.2", "gray 0.2"]);
+    if(count == 1){
+      movie1= mainchart .area(data1);
+     movie1.name(s).fill("#008080", 0.5).stroke("#008080");
+
+    }
+    if(count == 2){
+     movie2 =  mainchart .area(data1).name(s).fill("#FFBF00", 0.5).stroke("#FFBF00");
+    }
+    if(count == 3){
+      movie3 =mainchart .area(data1).name(s).fill("#FF7F50", 0.5).stroke("#FF7F50");
+    }
+    mainchart .container('container');
+    legend.fontColor("#111111");
+    mainchart .draw();
+}
+            else
+          {
+            alert("You cannot choose more than 3 movies");
+          } });
+           } 
+           
+
+           );
+    document.getElementById("fear_num").innerHTML = fear_emotion_num;
+    document.getElementById("disgust_num").innerHTML = disgust_emotion_num;
+    document.getElementById("sadness_num").innerHTML = sadness_emotion_num;
+    document.getElementById("surprise_num").innerHTML = surprise_emotion_num;
+    document.getElementById("anticipation_num").innerHTML = anticioation_emotion_num;
+    document.getElementById("joy_num").innerHTML = joy_emotion_num;
+    document.getElementById("trust_num").innerHTML = trust_emotion_num;
+    document.getElementById("anger_num").innerHTML = anger_emotion_num;
+            svg2.selectAll("*").remove();
+            var circle = svg2.selectAll(".name")
+                .data(data)
+                .enter().append("circle")
+                .attr("class", "kill")
+                .attr("r", function (d) {return 4;})
+               .style("fill", function (d) { return myColor(d.emotion_color); } )
+    .on('click', function(d) {
+                  if (d.emotion_color== "1")
+    {
+      document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("anger_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("angerlegend").style.display = 'block';
+
+    if(anger_count != 0){
+    document.getElementById("anger_container").style.display = 'block';
+    document.getElementById("clear_anger_radar").style.display = 'block';
+
+   
+    }
+    }
+   if (d.emotion_color == "2"){
+  
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("anticipation_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("anticipationlegend").style.display = 'block';
+    if(anticipation_count != 0){
+    document.getElementById("anticipation_container").style.display = 'block';
+    document.getElementById("clear_anticipation_radar").style.display = 'block';
+    }
+
+   }
+   if (d.emotion_color == "3"){
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("disgust_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("disgustlegend").style.display = 'block';
+    if(disgust_count != 0){
+    document.getElementById("disgust_container").style.display = 'block';
+    document.getElementById("clear_disgust_radar").style.display = 'block';
+   }
+  }
+   if (d.emotion_color == "4"){
+    
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("fear_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("fearlegend").style.display = 'block';
+    if(fear_count != 0){
+    document.getElementById("fear_container").style.display = 'block';
+    document.getElementById("clear_fear_radar").style.display = 'block';
+   }}
+   if (d.emotion_color == "5"){
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("joy_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("joylegend").style.display = 'block';
+    if(joy_count != 0){
+    document.getElementById("joy_container").style.display = 'block';
+    document.getElementById("clear_joy_radar").style.display = 'block';
+    }
+ 
+   }
+   if (d.emotion_color == "6"){
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("sadness_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("sadnesslegend").style.display = 'block';
+    if(sadness_count != 0){
+    document.getElementById("sadness_container").style.display = 'block';
+    document.getElementById("clear_sadness_radar").style.display = 'block';
+    }
+   }
+
+   if (d.emotion_color == "7"){
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("surprise_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("surpriselegend").style.display = 'block';
+    if(surprise_count != 0){
+    document.getElementById("surprise_container").style.display = 'block';
+    document.getElementById("clear_surprise_radar").style.display = 'block';
+   }
+  }
+  if (d.emotion_color == "8"){
+    document.getElementById("my_dataviz").style.display = 'none';
+    document.getElementById("chart").style.display = 'none';
+    document.getElementById("trust_chart").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    document.getElementById("trustlegend").style.display = 'block';
+    if(trust_count != 0){
+    document.getElementById("trust_container").style.display = 'block';
+    document.getElementById("clear_trust_radar").style.display = 'block';
+   
+   }
+  }
+})
+            sim.nodes(data).on("tick", ticked)
+            function ticked() {
+                circle.attr("cx", function (d) {
+                    return d.x
+                }).attr("cy", function (d) { return d.y })
+            }
+  x.domain([-100, 100]) 
+  svg.select(".myXaxis1")
+    .transition()
+    .duration(200)
+    .attr("opacity", "1")
+    .call(d3.axisBottom(x));
+  svg.selectAll("circle")
+    .transition()
+    .delay(function(d,i){return(i*0.2)})
+    .duration(200)
+    .attr("cx", function (d) { return x(d.tsne_glyph_x); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y); } )
+
+      // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+      .scaleExtent([.1, 1500]) 
+      .on("zoom", updateChart);
+
+   zoom(svg);
+  function updateChart() {
+   
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    svg
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y)});
+  }
+          })
+
+          $(document).on("click","#clear_radar",function() {
+            count = 0;
+              d3.select("#container").html("");
+      mainchart = anychart.radar();
+      mainchart .credits(false);
+      legend=mainchart .legend();
+      remove_radar_icon();
+});
+
+
+
+        }
+
+            function  checkIfpopupopen(){
+              if( document.getElementById("popupclickfilter").style.display == 'block')
+              document.getElementById("popupclickfilter").style.display = 'none';
+              if(document.getElementById("popupHelpGrioup").style.display == 'block')
+              document.getElementById("popupHelpGrioup").style.display = 'none';
+              if(document.getElementById("popupProperties").style.display =='block')
+              document.getElementById("popupProperties").style.display = 'none';
+              if(document.getElementById("popupClean").style.display == 'block')
+              document.getElementById("popupClean").style.display = 'none';
+             if( document.getElementById("popupzoom").style.display == 'block')
+             document.getElementById("popupzoom").style.display = 'none';
+              if(document.getElementById("popupRadar").style.display == 'block')
+              document.getElementById("popupRadar").style.display = 'none';
+
+              }
+
+        function pop1(){
+    document.getElementById("popupclickfilter").style.display = "block";
+    d3.select(".skipclick").on("click", function() {
+      document.getElementById("popupclickfilter").style.display = "none";
+      svg.attr("filter",null);
+})
+d3.select(".continueclick").on("click", function() {
+  document.getElementById("popupclickfilter").style.display = "none";
+  pop2();
+})
+  }
+
+  function pop2(){
+    document.getElementById("popupHelpGrioup").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'block';
+    d3.select(".skipGroup").on("click", function() {
+      document.getElementById("popupHelpGrioup").style.display = "none";
+      document.getElementById("filtersform").style.display = 'none';
+      svg.attr("filter",null);
+})
+d3.select(".continueGroup").on("click", function() {
+  document.getElementById("popupHelpGrioup").style.display = "none";
+  pop3();
+})
+  }
+function pop3(){
+    document.getElementById("popupProperties").style.display = 'block';
+    d3.select(".skipProperties").on("click", function() {
+      document.getElementById("popupProperties").style.display = "none";
+      document.getElementById("filtersform").style.display = 'none';
+      svg.attr("filter",null);
+})
+d3.select(".continueProperties").on("click", function() {
+  document.getElementById("popupProperties").style.display = "none";
+  pop4();
+})
+  }
+  function pop4(){
+
+document.getElementById("popupClean").style.display = 'block';
+d3.select(".skipClean").on("click", function() {
+  document.getElementById("popupClean").style.display = "none";
+  document.getElementById("filtersform").style.display = 'none';
+  svg.attr("filter",null);
+})
+d3.select(".continueClean").on("click", function() {
+document.getElementById("popupClean").style.display = "none";
+pop5();
+})
+
+}
+  function pop5(){
+    document.getElementById("popupzoom").style.display = 'block';
+    document.getElementById("filtersform").style.display = 'none';
+    d3.select(".skipzoom").on("click", function() {
+      document.getElementById("popupzoom").style.display = "none";
+      svg.attr("filter",null);
+})
+d3.select(".continuezoom").on("click", function() {
+  document.getElementById("popupzoom").style.display = "none";
+  pop6();
+})
+
+  }
+
+  function pop6(){
+    document.getElementById("popupRadar").style.display = 'block';
+    d3.select(".skipRadar").on("click", function() {
+      document.getElementById("popupRadar").style.display = "none";
+      svg.attr("filter", null);
+})
+  }
+
+  // -----------------------------------------------
+
+$(document).on("click","#help",function(){
+  checkIfpopupopen();
+  svg.attr("filter", "url(#blur)");
+  pop1();
+});
+
+        function remove_radar_icon()
+        {
+          document.getElementById("clear_radar").style.display='none';
+        }
+
+
+
+
+d3.csv("../static/new_csv/lvl2_fear.csv", function(data) {
+
+    var margin_fear = {top: 20, right: 330, bottom: 200, left:60},
+        width_fear = 1250- margin_fear.left - margin_fear.right,
+        height_fear = 700- margin_fear.top - margin_fear.bottom;
+
+  var fear_svg = d3.select("#fear_chart")
+        .append("svg")
+        .attr("width", width_fear + margin_fear.left + margin_fear.right)
+        .attr("height", height_fear + margin_fear.top + margin_fear.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var fearchart = anychart.radar();
+  fearchart.credits(false);
+    var fear_legend=fearchart.legend();
+
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_fear ]);
+  var xAxis = fear_svg.append("g")
+  .attr("transform", "translate(0," + height_fear + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,250])
+  .range([ height_fear, 0]);
+  var yAxis = fear_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = fear_svg.append("defs").append("fear_svg:clipPath")
+      .attr("id", "clip")
+      .append("fear_svg:rect")
+      .attr("width", width_fear )
+      .attr("height", height_fear )
+      .attr("x", -100)
+      .attr("y", -100);
+
+        // Create the scatter variable: where both the circles and the brush take place
+  var scatter = fear_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#fear_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_fear_radar",function() {
+          fear_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#fear_container").html("");
+              document.getElementById("fear_container").style.display='none';
+              document.getElementById("clear_fear_radar").style.display='none';
+              fearchart = anychart.radar();
+              fearchart .credits(false);
+              fear_legend=fearchart.legend();
+});
+
+  // Add circles
+  scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "fear_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) { 
+                  if(d.name=="All Quiet on the Western Front") return 20;
+             else if(d.name=="Mulholland Drive") return 20;
+             else if(d.name=="Horrors of the Black Museum") return 20;
+             else if(d.name=="The Phantom Carriage") return 20;
+             else if(d.name=="In a Lonely Place") return 20;
+             else if(d.name=="Night and Fog") return 20;
+             else if(d.name=="Cries & Whispers") return 20;
+             else return 5;
+
+     } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+    document.getElementById("fear_container").style.display = 'block';
+              document.getElementById("clear_fear_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(fear_count <3){
+          fear_count++;
+let fear_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let fear_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let fear_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let fear_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let fear_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let fear_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let fear_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let fear_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var fear_data1 = [
+
+                 {x: "anger", value: fear_emotion1},
+                 {x: "anticipation", value:fear_emotion2},
+                 {x: "disgust", value: fear_emotion3},
+                 {x: "fear", value: fear_emotion4},
+                 {x: "joy", value: fear_emotion5},
+                 {x: "sadness", value: fear_emotion6},
+                 {x: "surprise", value:fear_emotion7},
+                 {x: "trust", value: fear_emotion8},
+             ]; 
+var fear_movie_name = dx.name;
+var fear_movie_rating= dx.movie_rating;
+var fear_movie_directors= dx.movie_directors;
+var fear_movie_writers= dx.movie_writers;
+var fear_movie_stars= dx.movie_stars;
+var fear_movie_genres = dx.movie_genres;
+
+let movies_details_fear=  'Movie '+fear_count+'\n\n\nName: '+fear_movie_name .substring(0,25)+'\n'+fear_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ fear_movie_genres +'\n'+
+'\n'+'Directors: ' +fear_movie_directors.substring(0,20)+'\n'+fear_movie_directors.substring(20,51)+'\n'+fear_movie_directors.substring(51,)+'\n'+
+'Writers: '+fear_movie_writers.substring(0,22)+'\n'+fear_movie_writers.substring(22,53)+'\n'+fear_movie_writers.substring(53,)+
+'\n'+'\n'+'Stars: '+fear_movie_stars.substring(0,24)+'\n'+fear_movie_stars.substring(24,55)+'\n'+fear_movie_stars.substring(55,)+'\n';
+
+fearchart.title("Movies Details").legend(true);   
+fearchart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+var fear_radar_title = fearchart.title();
+fear_radar_title .enabled(true);
+fear_radar_title .padding(5);
+fear_radar_title .fontColor("#336699");
+fear_radar_title .fontSize(18);
+fear_radar_title .fontWeight(600);
+
+fearchart .tooltip().padding().left(20);
+fearchart .tooltip().background().fill("#ccccff");
+fearchart .tooltip().format("{{value}}");
+
+fearchart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if(fear_count == 1){
+
+  fearchart.area(fear_data1).name(movies_details_fear).fill("#008080", 0.3).stroke("#008080");
+}
+if(fear_count == 2){
+fearchart.area(fear_data1).name(movies_details_fear).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if(fear_count == 3){
+  fearchart.area(fear_data1).name(movies_details_fear).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+fearchart.container('fear_container');
+fear_legend.fontColor("#000000");
+fearchart.draw();
+}
+     else
+   {
+
+     alert("You cannot choose more than 3 movies");
+
+   } });
+    }   );
+
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_fear, height_fear]])
+      .on("zoom", updateChart);
+
+  zoom(fear_svg);
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+
+})
+
+d3.csv("../static/new_csv/lvl2_disgust.csv", function(data) {
+    //disgust margin  
+    var margin_disgust =   {top: 20, right: 330, bottom: 200, left:60},
+        width_disgust = 1250 - margin_disgust.left - margin_disgust.right,
+        height_disgust = 700- margin_disgust.top - margin_disgust.bottom;
+
+
+  var disgust_svg = d3.select("#disgust_chart")
+        .append("svg")
+        .attr("width", width_disgust + margin_disgust.left + margin_disgust.right)
+        .attr("height", height_disgust + margin_disgust.top + margin_disgust.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_disgust.left + "," + margin_disgust.top + ")");
+
+
+
+
+  var disgustchart = anychart.radar();
+    disgustchart.credits(false);
+    var disgust_legend=disgustchart.legend();
+
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_disgust ]);
+  var xAxis =disgust_svg.append("g")
+  .attr("transform", "translate(0," + height_disgust + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,80])
+  .range([ height_disgust, 0]);
+  var yAxis = disgust_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = disgust_svg.append("defs").append("disgust_svg:clipPath")
+      .attr("id", "clip")
+      .append("disgust_svg:rect")
+      .attr("width", width_disgust )
+      .attr("height", height_disgust )
+      .attr("x", -100)
+      .attr("y", -100);
+
+        // Create the scatter variable: where both the circles and the brush take place
+  var scatter = disgust_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#disgust_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              // .style("background-color", "white")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_disgust_radar",function() {
+            disgust_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#disgust_container").html("");
+              document.getElementById("disgust_container").style.display='none';
+              document.getElementById("clear_disgust_radar").style.display='none';
+     disgustchart = anychart.radar();
+      disgustchart .credits(false);
+      disgust_legend=disgust.legend();
+});
+// Add circles
+scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "disgust_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) {
+            if(d.name=="Le Trou") return 20;
+             else if(d.name=="Kung Fury") return 20;
+             else if(d.name=="Rope") return 20;
+             else if(d.name=="The Battle of Algiers") return 20;
+             else if(d.name=="Divorce Italian Style") return 20;
+             else if(d.name=="Dial M for Murder") return 20;
+             else if(d.name=="The Man Who Shot Liberty Valance") return 20;
+             else return 5;
+     } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+    document.getElementById("disgust_container").style.display = 'block';
+              document.getElementById("clear_disgust_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(disgust_count <3){
+         disgust_count++;
+let disgust_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let disgust_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let disgust_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let disgust_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let disgust_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let disgust_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let disgust_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let disgust_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var disgust_data1 = [
+
+                 {x: "anger", value: disgust_emotion1},
+                 {x: "anticipation", value: disgust_emotion2},
+                 {x: "disgust", value: disgust_emotion3},
+                 {x: "fear", value: disgust_emotion4},
+                 {x: "joy", value: disgust_emotion5},
+                 {x: "sadness", value: disgust_emotion6},
+                 {x: "surprise", value: disgust_emotion7},
+                 {x: "trust", value: disgust_emotion8},
+             ]; 
+var disgust_movie_name = dx.name;
+var disgust_movie_rating= dx.movie_rating;
+var disgust_movie_directors= dx.movie_directors;
+var disgust_movie_writers= dx.movie_writers;
+var disgust_movie_stars= dx.movie_stars;
+var disgust_movie_genres = dx.movie_genres;
+let movies_details_disgust =  'Movie '+disgust_count+'\n\n\nName: '+disgust_movie_name .substring(0,25)+'\n'+disgust_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ disgust_movie_genres +'\n'+'\n'+'Directors: ' +disgust_movie_directors.substring(0,20)+'\n'+disgust_movie_directors.substring(20,51)+'\n'+disgust_movie_directors.substring(51,)+'\n'+
+                           'Writers: '+disgust_movie_writers.substring(0,22)+'\n'+disgust_movie_writers.substring(22,53)+'\n'+disgust_movie_writers.substring(53,)+'\n'+'\n'+'Stars: '+disgust_movie_stars.substring(0,24)+'\n'+disgust_movie_stars.substring(24,55)+'\n'+disgust_movie_stars.substring(55,)+'\n';
+
+disgustchart.title("Movies Deatils").legend(true);    
+disgustchart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+var disgust_radar_title = disgustchart.title();
+disgust_radar_title.enabled(true);
+disgust_radar_title.padding(5);
+disgust_radar_title.fontColor("#336699");
+disgust_radar_title.fontSize(18);
+disgust_radar_title .fontWeight(600);
+
+disgustchart .tooltip().padding().left(20);
+disgustchart .tooltip().background().fill("#ccccff");
+disgustchart .tooltip().format("{{value}}");
+
+
+disgustchart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if(disgust_count == 1){
+  disgustchart.area(disgust_data1).name(movies_details_disgust).fill("#008080", 0.3).stroke("#008080");
+}
+if(disgust_count == 2){
+// chart.area(data1).remove();
+disgustchart.area(disgust_data1).name(movies_details_disgust).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if(disgust_count == 3){
+  disgustchart.area(disgust_data1).name(movies_details_disgust).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+disgustchart.container('disgust_container');
+disgust_legend.fontColor("#000000");
+disgustchart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+   } });
+    }   );
+
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000]) // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_disgust, height_disgust]])
+      .on("zoom", updateChart);
+
+zoom(disgust_svg);
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+
+//Read the data
+d3.csv("../static/new_csv/lvl2_anger.csv", function(data) {
+   //anger margin
+
+   var margin_anger =  {top: 20, right: 330, bottom: 200, left:60},
+        width_anger = 1250- margin_anger.left - margin_anger.right,
+        height_anger = 700- margin_anger.top - margin_anger.bottom;        
+ 
+
+
+        
+  var anger_svg = d3.select("#anger_chart")
+        .append("svg")
+        .attr("width", width_anger + margin_anger.left + margin_anger.right)
+        .attr("height", height_anger + margin_anger.top + margin_anger.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_anger.left + "," + margin_anger.top + ")");
+        
+  var angerchart = anychart.radar();
+    angerchart.credits(false);
+    var anger_legend=angerchart.legend();
+
+// Add X axis
+var x = d3.scaleLinear()
+  .domain([-100,100])
+  .range([ 0, width_anger]);
+  var xAxis = anger_svg.append("g")
+  .attr("transform", "translate(0," + height_anger + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+  .domain([-100,100])
+  .range([ height_anger, 0]);
+  var yAxis = anger_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = anger_svg.append("defs").append("anger_svg:clipPath")
+      .attr("id", "clip")
+      .append("anger_svg:rect")
+      .attr("width", width_anger )
+      .attr("height", height_anger )
+      .attr("x", -100)
+      .attr("y", -100);
+
+        // Create the scatter variable: where both the circles and the brush take place
+  var scatter = anger_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#anger_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_anger_radar",function() {
+            anger_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#anger_container").html("");
+              document.getElementById("anger_container").style.display='none';
+              document.getElementById("clear_anger_radar").style.display='none';
+     angerchart = anychart.radar();
+      angerchart .credits(false);
+      anger_legend=angerchart.legend();
+});
+
+  // Add circles
+  scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "anger_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) {     
+             if(d.name=="Cinderella Man") return 20;
+             else if(d.name=="Greed") return 20;
+             else if(d.name=="Wit") return 20;
+             else if(d.name=="Little Dieter Needs to Fly") return 20;
+             else if(d.name=="Amores Perros") return 20;
+             else if(d.name=="Harry Potter and the Deathly Hallows: Part 2") return 20;
+             else if(d.name=="The Celebration") return 20;
+             else return 5;} )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+    
+    document.getElementById("anger_container").style.display = 'block';
+              document.getElementById("clear_anger_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(anger_count <3){
+         anger_count++;
+let anger_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let anger_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let anger_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let anger_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let anger_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let anger_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let anger_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let anger_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var anger_data1 = [
+
+                 {x: "anger", value: anger_emotion1},
+                 {x: "anticipation", value: anger_emotion2},
+                 {x: "disgust", value: anger_emotion3},
+                 {x: "fear", value: anger_emotion4},
+                 {x: "joy", value: anger_emotion5},
+                 {x: "sadness", value: anger_emotion6},
+                 {x: "surprise", value: anger_emotion7},
+                 {x: "trust", value: anger_emotion8},
+             ]; 
+var anger_movie_name = dx.name;
+var anger_movie_rating= dx.movie_rating;
+var anger_movie_directors= dx.movie_directors;
+var anger_movie_writers= dx.movie_writers;
+var anger_movie_stars= dx.movie_stars;
+var anger_movie_genres = dx.movie_genres;
+
+let movies_details_anger=  'Movie '+anger_count+'\n\n\nName: '+anger_movie_name .substring(0,25)+'\n'+anger_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ anger_movie_genres +'\n'+'\n'+'Directors: ' +anger_movie_directors.substring(0,20)+'\n'+anger_movie_directors.substring(20,51)+'\n'+anger_movie_directors.substring(51,)+'\n'+
+                           'Writers: '+anger_movie_writers.substring(0,22)+'\n'+anger_movie_writers.substring(22,53)+'\n'+anger_movie_writers.substring(53,)+'\n'+'\n'+'Stars: '+anger_movie_stars.substring(0,24)+'\n'+anger_movie_stars.substring(24,55)+'\n'+anger_movie_stars.substring(55,)+'\n';
+
+angerchart.title("Movies Details").legend(true);    
+angerchart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+var anger_radar_title = angerchart.title();
+anger_radar_title .enabled(true);
+anger_radar_title .padding(5);
+anger_radar_title .fontColor("#336699");
+anger_radar_title .fontSize(18);
+anger_radar_title .fontWeight(600);
+angerchart .tooltip().padding().left(20);
+angerchart .tooltip().background().fill("#ccccff");
+angerchart .tooltip().format("{{value}}");
+
+angerchart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if(anger_count == 1){
+
+  angerchart.area(anger_data1).name(movies_details_anger).fill("#008080", 0.3).stroke("#008080");
+}
+if(anger_count == 2){
+angerchart.area(anger_data1).name(movies_details_anger).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if(anger_count == 3){
+  angerchart.area(anger_data1).name(movies_details_anger).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+angerchart.container('anger_container');
+anger_legend.fontColor("#000000");
+angerchart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+
+   } });
+    }   );
+
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+      .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .on("zoom", updateChart);
+
+
+zoom(anger_svg);
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+//Read the data
+d3.csv("../static/new_csv/lvl2_anticipation.csv", function(data) {
+    //margin anticipation
+    var margin_anticipation =  {top: 20, right: 330, bottom: 200, left:60},
+        width_anticipation = 1250- margin_anticipation.left - margin_anticipation.right,
+        height_anticipation = 700 - margin_anticipation.top - margin_anticipation.bottom;
+
+  var anticipation_svg = d3.select("#anticipation_chart")
+        .append("svg")
+        .attr("width", width_anticipation + margin_anticipation.left + margin_anticipation.right)
+        .attr("height", height_anticipation + margin_anticipation.top + margin_anticipation.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_anticipation.left + "," + margin_anticipation.top + ")");
+        
+  var anticipationchart = anychart.radar();
+  anticipationchart.credits(false);
+    var anticipation_legend=anticipationchart.legend();
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_anticipation ]);
+  var xAxis = anticipation_svg.append("g")
+  .attr("transform", "translate(0," + height_anticipation + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,100])
+  .range([ height_anticipation, 0]);
+
+var yAxis =  anticipation_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+   // Add a clipPath: everything out of this area won't be drawn.
+   var clip = anticipation_svg.append("defs").append("anticipation_svg:clipPath")
+      .attr("id", "clip")
+      .append("anticipation_svg:rect")
+      .attr("width", width_anticipation)
+      .attr("height", height_anticipation )
+      .attr("x", -100)
+      .attr("y", -100);
+
+  // Create the scatter variable: where both the circles and the brush take place
+  var scatter = anticipation_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#anticipation_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+
+        $(document).on("click","#clear_anticipation_radar",function() {
+          anticipation_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#anticipation_container").html("");
+              document.getElementById("anticipation_container").style.display='none';
+              document.getElementById("clear_anticipation_radar").style.display='none';
+              anticipationchart = anychart.radar();
+              anticipationchart .credits(false);
+              anticipation_legend=anticipationchart .legend();
+});
+
+// Add dots
+scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "anticipation_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) {   //  if(d.name=="Bangkok Dangerous" && d.movie_id=="6174d29c2788418ec8250c40") return 20;
+            if(d.name=="A Matter of Life and Death") return 20;
+             else if(d.name=="The Wizard of Oz") return 20;
+             else if(d.name=="You See Me") return 20;
+             else if(d.name=="Gone with the Wind") return 20;
+             else if(d.name=="Trouble in Paradise") return 20;
+             else if(d.name=="The Thin Man") return 20;
+             else if(d.name=="It Happened One Night") return 20;
+             else return 5;})
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+  document.getElementById("anticipation_container").style.display = 'block';
+              document.getElementById("clear_anticipation_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(anticipation_count <3){
+          anticipation_count++;
+let anticipation_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let anticipation_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let anticipation_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let anticipation_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let anticipation_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let anticipation_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let anticipation_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let anticipation_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var anticipation_data1 = [
+
+                 {x: "anger", value: anticipation_emotion1},
+                 {x: "anticipation", value: anticipation_emotion2},
+                 {x: "disgust", value:anticipation_emotion3},
+                 {x: "fear", value:anticipation_emotion4},
+                 {x: "joy", value: anticipation_emotion5},
+                 {x: "sadness", value: anticipation_emotion6},
+                 {x: "surprise", value: anticipation_emotion7},
+                 {x: "trust", value: anticipation_emotion8},
+             ]; 
+var anticipation_movie_name = dx.name;
+var anticipation_movie_rating= dx.movie_rating;
+var anticipation_movie_directors= dx.movie_directors;
+var anticipation_movie_writers= dx.movie_writers;
+var anticipation_movie_stars= dx.movie_stars;
+var anticipation_movie_genres = dx.movie_genres;
+
+let movies_details_anticipation =  'Movie '+anticipation_count+'\n\n\nName: '+anticipation_movie_name .substring(0,25)+
+'\n'+anticipation_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ anticipation_movie_genres +'\n'+'\n'+
+'Directors: ' +anticipation_movie_directors.substring(0,20)+'\n'+
+anticipation_movie_directors.substring(20,51)+'\n'+
+anticipation_movie_directors.substring(51,)+'\n'+
+'Writers: '+anticipation_movie_writers.substring(0,22)+'\n'+
+anticipation_movie_writers.substring(22,53)+'\n'+
+anticipation_movie_writers.substring(53,)+'\n'+
+'\n'+'Stars: '+anticipation_movie_stars.substring(0,24)+'\n'+
+anticipation_movie_stars.substring(24,55)+'\n'+
+anticipation_movie_stars.substring(55,)+'\n';
+
+anticipationchart.title("Movies Details").legend(true);   
+anticipationchart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+
+var anticipation_radar_title = anticipationchart.title();
+anticipation_radar_title .enabled(true);
+anticipation_radar_title .padding(5);
+anticipation_radar_title .fontColor("#336699");
+anticipation_radar_title .fontSize(18);
+anticipation_radar_title  .fontWeight(600);
+anticipationchart .tooltip().padding().left(20);
+anticipationchart .tooltip().background().fill("#ccccff");
+anticipationchart .tooltip().format("{{value}}");
+
+
+anticipationchart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if(anticipation_count == 1){
+  anticipationchart.area(anticipation_data1).name(movies_details_anticipation).fill("#008080", 0.3).stroke("#008080");
+}
+if(anticipation_count == 2){
+anticipationchart.area(anticipation_data1).name(movies_details_anticipation).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if(anticipation_count == 3){
+  anticipationchart.area(anticipation_data1).name(movies_details_anticipation).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+anticipationchart.container('anticipation_container');
+anticipation_legend.fontColor("#000000");
+anticipationchart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+    } });
+    }   );
+
+    // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+    var zoom = d3.zoom()
+    .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_anticipation, height_anticipation]])
+      .on("zoom", updateChart);
+
+  // This add an invisible rect on top of the chart area. This rect can recover pointer events: necessary to understand when the user zoom
+zoom(anticipation_svg);
+  // now the user can zoom and it will trigger the function called updateChart
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+
+})
+//Read the data
+d3.csv("../static/new_csv/lvl2_joy.csv", function(data) {
+
+         
+    //margin joy
+    var margin_joy = {top: 20, right: 330, bottom: 200, left:60},
+        width_joy = 1250 - margin_joy.left - margin_joy.right,
+        height_joy = 700 - margin_joy.top - margin_joy.bottom;
+
+   //joy svg
+  var joy_svg = d3.select("#joy_chart")
+        .append("svg")
+        .attr("width", width_joy + margin_joy.left + margin_joy.right)
+        .attr("height", height_joy + margin_joy.top + margin_joy.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_joy.left + "," + margin_joy.top + ")");
+
+
+
+  var joychart = anychart.radar();
+    joychart.credits(false);
+    var joy_legend=joychart.legend();
+
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_joy ]);
+  var xAxis = joy_svg.append("g")
+  .attr("transform", "translate(0," + height_joy + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,100])
+  .range([ height_joy, 0]);
+  var yAxis = joy_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+  // Add a clipPath: everything out of this area won't be drawn.
+  var clip = joy_svg.append("defs").append("joy_svg:clipPath")
+      .attr("id", "clip")
+      .append("joy_svg:rect")
+      .attr("width", width_joy )
+      .attr("height", height_joy )
+      .attr("x", -100)
+      .attr("y", -100);
+
+  // Create the scatter variable: where both the circles and the brush take place
+  var scatter = joy_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#joy_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_joy_radar",function() {
+          joy_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#joy_container").html("");
+              document.getElementById("joy_container").style.display='none';
+              document.getElementById("clear_joy_radar").style.display='none';
+              joychart = anychart.radar();
+              joychart .credits(false);
+              joy_legend=joychart .legend();
+});
+ // Add circles
+ scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "joy_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) { 
+            if(d.name=="Sunset Blvd.") return 20;
+             else if(d.name=="The General") return 20;
+             else if(d.name=="The Passion of Joan of Arc") return 20;
+             else if(d.name=="The Red Balloon") return 20;
+             else if(d.name=="It's Such a Beautiful Day") return 20;
+             else if(d.name=="A Trip to the Moon") return 20;
+             else if(d.name=="The Truman Show") return 20;
+             else return 5;
+     } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {  
+  document.getElementById("joy_container").style.display = 'block';
+              document.getElementById("clear_joy_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(joy_count <3){
+         joy_count++;
+let joy_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let joy_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let joy_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let joy_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let joy_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let joy_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let joy_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let joy_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var  joy_data1 = [
+
+                 {x: "anger", value: joy_emotion1},
+                 {x: "anticipation", value: joy_emotion2},
+                 {x: "disgust", value: joy_emotion3},
+                 {x: "fear", value:  joy_emotion4},
+                 {x: "joy", value:  joy_emotion5},
+                 {x: "sadness", value: joy_emotion6},
+                 {x: "surprise", value:  joy_emotion7},
+                 {x: "trust", value:  joy_emotion8},
+             ]; 
+var  joy_movie_name = dx.name;
+var  joy_movie_rating= dx.movie_rating;
+var  joy_movie_directors= dx.movie_directors;
+var  joy_movie_writers= dx.movie_writers;
+var  joy_movie_stars= dx.movie_stars;
+var  joy_movie_genres = dx.movie_genres;
+
+let movies_details_joy=  'Movie '+joy_count+'\n\n\nName: '+joy_movie_name .substring(0,25)+
+'\n'+joy_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ joy_movie_genres  +'\n'+'\n'+
+'Directors: ' +joy_movie_directors.substring(0,20)+'\n'+
+joy_movie_directors.substring(20,51)+'\n'+
+joy_movie_directors.substring(51,)+'\n'+
+'Writers: '+joy_movie_writers.substring(0,22)+'\n'+
+joy_movie_writers.substring(22,53)+'\n'+
+joy_movie_writers.substring(53,)+'\n'+
+'\n'+'Stars: '+joy_movie_stars.substring(0,24)+'\n'+
+joy_movie_stars.substring(24,55)+'\n'+
+joy_movie_stars.substring(55,)+'\n';
+
+joychart.title("Movies Details").legend(true);    
+ joychart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+
+var joy_radar_title = joychart.title();
+joy_radar_title .enabled(true);
+joy_radar_title .padding(5);
+joy_radar_title .fontColor("#336699");
+joy_radar_title .fontSize(18);
+joy_radar_title  .fontWeight(600);
+joychart .tooltip().padding().left(20);
+joychart .tooltip().background().fill("#ccccff");
+joychart .tooltip().format("{{value}}");
+
+ joychart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if( joy_count == 1){
+ 
+
+   joychart.area( joy_data1).name(movies_details_joy).fill("#008080", 0.3).stroke("#008080");
+}
+if( joy_count == 2){
+ joychart.area( joy_data1).name(movies_details_joy).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if( joy_count == 3){
+   joychart.area( joy_data1).name(movies_details_joy).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+ joychart.container('joy_container');
+ joy_legend.fontColor("#000000");
+ joychart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+   } });
+    }   );
+
+    
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_joy, height_joy]])
+      .on("zoom", updateChart);
+
+ zoom(joy_svg);
+  // now the user can zoom and it will trigger the function called updateChart
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+
+d3.csv("../static/new_csv/lvl2_trust.csv", function(data) {
+
+
+        
+     //trust margin
+     var margin_trust = {top: 20, right: 330, bottom: 200, left:60},
+        width_trust = 1250 - margin_trust.left - margin_trust.right,
+        height_trust = 700 - margin_trust.top - margin_trust.bottom;
+  
+
+  var trust_svg = d3.select("#trust_chart")
+        .append("svg")
+        .attr("width", width_trust + margin_trust.left + margin_trust.right)
+        .attr("height", height_trust + margin_trust.top + margin_trust.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_trust.left + "," + margin_trust.top + ")");
+
+
+
+
+  var trustchart = anychart.radar();
+    trustchart.credits(false);
+    var trust_legend=trustchart.legend();
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_trust ]);
+  var xAxis = trust_svg.append("g")
+  .attr("transform", "translate(0," + height_trust + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+var y = d3.scaleLinear()
+.domain([-100,100])
+  .range([ height_trust, 0]);
+  var yAxis = trust_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+  
+  // Add a clipPath: everything out of this area won't be drawn.
+  var clip = trust_svg.append("defs").append("trust_svg:clipPath")
+      .attr("id", "clip")
+      .append("trust_svg:rect")
+      .attr("width", width_trust )
+      .attr("height", height_trust)
+      .attr("x", -100)
+      .attr("y", -100);
+
+  // Create the scatter variable: where both the circles and the brush take place
+  var scatter = trust_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#trust_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_trust_radar",function() {
+          trust_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#trust_container").html("");
+              document.getElementById("trust_container").style.display='none';
+              document.getElementById("clear_trust_radar").style.display='none';
+              trustchart = anychart.radar();
+              trustchart .credits(false);
+              trust_legend=trustchart .legend();
+});
+ // Add circles
+ scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "trust_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) {
+            if(d.name=="Spotlight") return 20;
+             else if(d.name=="The Wind") return 20;
+             else if(d.name=="Ace in the Hole") return 20;
+             else if(d.name=="La Grande Illusion") return 20;
+             else if(d.name=="The Last Command") return 20;
+             else if(d.name=="Modern Times") return 20;
+             else if(d.name=="Double Indemnity") return 20;
+             else return 5;
+
+    } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+  document.getElementById("trust_container").style.display = 'block';
+              document.getElementById("clear_trust_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(trust_count <3){
+          trust_count++;
+let trust_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let trust_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let trust_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let trust_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let trust_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let trust_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let trust_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let trust_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var  trust_data1 = [
+
+                 {x: "anger", value: trust_emotion1},
+                 {x: "anticipation", value: trust_emotion2},
+                 {x: "disgust", value: trust_emotion3},
+                 {x: "fear", value:  trust_emotion4},
+                 {x: "joy", value:  trust_emotion5},
+                 {x: "sadness", value: trust_emotion6},
+                 {x: "surprise", value: trust_emotion7},
+                 {x: "trust", value:  trust_emotion8},
+             ]; 
+var  trust_movie_name = dx.name;
+var  trust_movie_rating= dx.movie_rating;
+var  trust_movie_directors= dx.movie_directors;
+var  trust_movie_writers= dx.movie_writers;
+var  trust_movie_stars= dx.movie_stars;
+var  trust_movie_genres = dx.movie_genres;
+
+let movies_details_trust =  'Movie '+trust_count+'\n\n\nName: '+trust_movie_name .substring(0,25)+
+'\n'+trust_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+ trust_movie_genres +'\n'+'\n'+
+'Directors: ' +trust_movie_directors.substring(0,20)+'\n'+
+trust_movie_directors.substring(20,51)+'\n'+
+trust_movie_directors.substring(51,)+'\n'+
+'Writers: '+trust_movie_writers.substring(0,22)+'\n'+
+trust_movie_writers.substring(22,53)+'\n'+
+trust_movie_writers.substring(53,)+'\n'+
+'\n'+'Stars: '+
+trust_movie_stars.substring(0,24)+'\n'+
+trust_movie_stars.substring(24,55)+'\n'+
+trust_movie_stars.substring(55,)+'\n';
+
+trustchart.title("Movies Details").legend(true);    
+ trustchart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+
+var trust_radar_title = trustchart.title();
+trust_radar_title .enabled(true);
+trust_radar_title .padding(5);
+trust_radar_title .fontColor("#336699");
+trust_radar_title .fontSize(18);
+trust_radar_title  .fontWeight(600);
+trustchart .tooltip().padding().left(20);
+trustchart .tooltip().background().fill("#ccccff");
+trustchart .tooltip().format("{{value}}");
+
+
+trustchart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if(trust_count == 1){
+   trustchart.area( trust_data1).name(movies_details_trust ).fill("#008080", 0.3).stroke("#008080");
+}
+if( trust_count == 2){
+ trustchart.area( trust_data1).name(movies_details_trust ).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if(trust_count == 3){
+  trustchart.area( trust_data1).name(movies_details_trust ).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+trustchart.container('trust_container');
+trust_legend.fontColor("#000000");
+trustchart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+   } });
+    }   );
+
+    
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000]) // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_trust, height_trust]])
+      .on("zoom", updateChart);
+
+zoom(trust_svg);
+  // now the user can zoom and it will trigger the function called updateChart
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+//Read the data
+d3.csv("../static/new_csv/lvl2_sadness.csv", function(data) {
+
+    //sadness margin
+    var margin_sadness =   {top: 20, right: 330, bottom: 200, left:60},
+        width_sadness = 1250- margin_sadness.left - margin_sadness.right,
+        height_sadness = 700- margin_sadness.top - margin_sadness.bottom;
+
+
+  var sadness_svg = d3.select("#sadness_chart")
+        .append("svg")
+        .attr("width", width_sadness + margin_sadness.left + margin_sadness.right)
+        .attr("height", height_sadness + margin_sadness.top + margin_sadness.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_sadness.left + "," + margin_sadness.top + ")");
+
+
+
+
+  var sadnesschart = anychart.radar();
+    sadnesschart.credits(false);
+    var sadness_legend=sadnesschart.legend();
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_sadness ]);
+  var xAxis = sadness_svg.append("g")
+  .attr("transform", "translate(0," + height_sadness + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,100])
+  .range([ height_sadness, 0]);
+  var yAxis = sadness_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+  
+  // Add a clipPath: everything out of this area won't be drawn.
+  var clip = sadness_svg.append("defs").append("sadness_svg:clipPath")
+      .attr("id", "clip")
+      .append("sadness_svg:rect")
+      .attr("width", width_sadness)
+      .attr("height", height_sadness )
+      .attr("x", -100)
+      .attr("y", -100);
+
+  // Create the scatter variable: where both the circles and the brush take place
+  var scatter = sadness_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#sadness_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_sadness_radar",function() {
+          sadness_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#sadness_container").html("");
+              document.getElementById("sadness_container").style.display='none';
+              document.getElementById("clear_sadness_radar").style.display='none';
+              sadnesschart = anychart.radar();
+              sadnesschart .credits(false);
+              sadness_legend=sadnesschart .legend();
+});
+ // Add circles
+ scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "sadness_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) { 
+            if(d.name=="Los Olvidados") return 20;
+             else if(d.name=="Rosemary's Baby") return 20;
+             else if(d.name=="The Exorcist") return 20;
+             else if(d.name=="A Bill of Divorcement") return 20;
+             else if(d.name=="Psycho") return 20;
+             else if(d.name=="Diabolique") return 20;
+             else if(d.name=="Disorder in the Court") return 20;
+             else return 5;
+     } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {
+    document.getElementById("sadness_container").style.display = 'block';
+              document.getElementById("clear_sadness_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(sadness_count <3){
+          sadness_count++;
+let sadness_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let sadness_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let sadness_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let sadness_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let sadness_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let sadness_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let sadness_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let sadness_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var  sadness_data1 = [
+
+                 {x: "anger", value: sadness_emotion1},
+                 {x: "anticipation", value: sadness_emotion2},
+                 {x: "disgust", value: sadness_emotion3},
+                 {x: "fear", value:  sadness_emotion4},
+                 {x: "joy", value:  sadness_emotion5},
+                 {x: "sadness", value: sadness_emotion6},
+                 {x: "surprise", value: sadness_emotion7},
+                 {x: "trust", value:  sadness_emotion8},
+             ]; 
+var  sadness_movie_name = dx.name;
+var  sadness_movie_rating= dx.movie_rating;
+var  sadness_movie_directors= dx.movie_directors;
+var  sadness_movie_writers= dx.movie_writers;
+var  sadness_movie_stars= dx.movie_stars;
+var  sadness_movie_genres = dx.movie_genres;
+
+let movies_details_sadness =  'Movie '+ sadness_count+'\n\n\nName: '+ sadness_movie_name .substring(0,25)+
+'\n'+ sadness_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+  sadness_movie_genres +'\n'+'\n'+
+'Directors: ' + sadness_movie_directors.substring(0,20)+'\n'+
+sadness_movie_directors.substring(20,51)+'\n'+
+sadness_movie_directors.substring(51,)+'\n'+
+'Writers: '+ sadness_movie_writers.substring(0,22)+'\n'+
+sadness_movie_writers.substring(22,53)+'\n'+
+sadness_movie_writers.substring(53,)+'\n'+
+'\n'+'Stars: '+
+sadness_movie_stars.substring(0,24)+'\n'+
+sadness_movie_stars.substring(24,55)+'\n'+
+sadness_movie_stars.substring(55,)+'\n';
+
+sadnesschart.title("Movies Details").legend(true);    
+ sadnesschart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+
+
+var sadness_radar_title = sadnesschart.title();
+sadness_radar_title .enabled(true);
+sadness_radar_title .padding(5);
+sadness_radar_title .fontColor("#336699");
+sadness_radar_title .fontSize(18);
+sadness_radar_title  .fontWeight(600);
+sadnesschart .tooltip().padding().left(20);
+sadnesschart .tooltip().background().fill("#ccccff");
+sadnesschart .tooltip().format("{{value}}");
+
+
+ sadnesschart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if( sadness_count == 1){
+   sadnesschart.area( sadness_data1).name(movies_details_sadness).fill("#008080", 0.3).stroke("#008080");
+}
+if( sadness_count == 2){
+ sadnesschart.area( sadness_data1).name(movies_details_sadness).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if( sadness_count == 3){
+   sadnesschart.area( sadness_data1).name(movies_details_sadness).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+sadnesschart.container('sadness_container');
+sadness_legend.fontColor("#000000");
+ sadnesschart.draw();
+}
+     else
+   {
+     alert("You cannot choose more than 3 movies");
+   } });
+    }   );
+
+    
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_sadness, height_sadness]])
+      .on("zoom", updateChart);
+
+zoom(sadness_svg);
+  // now the user can zoom and it will trigger the function called updateChart
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+//Read the data
+d3.csv("../static/new_csv/lvl2_surprise.csv", function(data) {
+
+  //margin surprise
+  var margin_surprise =   {top: 20, right: 330, bottom: 200, left:60},
+        width_surprise = 1250 - margin_surprise.left - margin_surprise.right,
+        height_surprise = 700 - margin_surprise.top - margin_surprise.bottom;
+
+  var surprise_svg = d3.select("#surprise_chart")
+        .append("svg")
+        .attr("width", width_surprise + margin_surprise.left + margin_surprise.right)
+        .attr("height", height_surprise + margin_surprise.top + margin_surprise.bottom)
+        .append("g")
+        .attr("transform","translate(" + margin_surprise.left + "," + margin_surprise.top + ")");
+
+  var surprisechart = anychart.radar();
+    surprisechart.credits(false);
+    var surprise_legend=surprisechart.legend();
+// Add X axis
+var x = d3.scaleLinear()
+.domain([-100,100])
+  .range([ 0, width_surprise ]);
+  var xAxis = surprise_svg.append("g")
+  .attr("transform", "translate(0," + height_surprise + ")")
+  .attr("display", "none")
+  .call(d3.axisBottom(x));
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([-100,100])
+  .range([ height_surprise, 0]);
+  var yAxis = surprise_svg.append("g")
+  .attr("display", "none")
+  .call(d3.axisLeft(y));
+// Add a scale for bubble size
+var z = d3.scaleLinear()
+  .domain([200000, 1310000000])
+  .range([ 4, 40]);
+
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = surprise_svg.append("defs").append("surprise_svg:clipPath")
+      .attr("id", "clip")
+      .append("surprise_svg:rect")
+      .attr("width", width_surprise)
+      .attr("height", height_surprise )
+      .attr("x", -100)
+      .attr("y", -100);
+
+  // Create the scatter variable: where both the circles and the brush take place
+  var scatter = surprise_svg.append('g')
+    .attr("clip-path", "url(#clip)")
+
+
+   // Add a scale for bubble color
+   var myColor = d3.scaleOrdinal()  
+          .domain(["1","2","3","4","5","6","7","8"])
+            .range(["#ff0000", "#ff6600","#ff6699", "#66cc66","#ffff00","#cc00ff","#33adff","#996633"]);
+
+            var tooltip = d3.select("#surprise_chart")
+              .append("div")
+              .style("opacity", 0)
+              .attr("class", "tooltip")
+              .style("background-color", "hsla(303, 73%, 94%, 0.64)")
+              .style("border-radius", "10px")
+              .style("padding", "10px")
+              .style("height", "40%") 
+              .style("font-weight", "bold")
+              .style("width", "20%")
+              .style("color", "black")
+              .style("position", "absolute") 
+
+              var showTooltip = function(d) {
+            let rating_stars="";
+            let title = d.titleId;
+            let sub_nameofposter=title.substring(2,);
+            if(d.movie_rating== 1)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_1.svg + height ='80' width='140' />";
+            if(d.movie_rating== 2)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_2.svg + height ='80' width='150' />";
+            if(d.movie_rating== 3)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_3.svg + height ='80' width='160' />";
+            if(d.movie_rating== 4)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_4.svg + height ='80' width='170' />";
+            if(d.movie_rating== 5)
+            rating_stars = d.name +"<br/><br/><img src=" + "../static/img/posters/"+sub_nameofposter+".jpg" +" height ='130' width='130' />"
+            +"<br/><img src=../static/img/rating_5.svg + height ='80' width='180' />";
+            tooltip
+              .transition()
+              .duration(200)
+            tooltip
+              .style("opacity", 1)
+              .html(rating_stars)
+              .style("text-align" , "center")
+              .style("font-style" ,"arial")
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", (d3.mouse(this)[0]+10) + "px")
+              .style("top", (d3.mouse(this)[1]+10) + "px")
+          }
+
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(100)
+              .style("opacity", 0)
+          }
+        $(document).on("click","#clear_surprise_radar",function() {
+          surprise_count = 0;
+            tooltip
+              .transition()
+              .duration(0)
+              .style("opacity", 0)
+              d3.select("#surprise_container").html("");
+              document.getElementById("surprise_container").style.display='none';
+              document.getElementById("clear_surprise_radar").style.display='none';
+              surprisechart = anychart.radar();
+              surprisechart .credits(false);
+              surprise_legend=surprisechart .legend();
+});
+ // Add circles
+ scatter.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("circle")
+    .attr("class", "surprise_bubble")
+    .attr("cx", function (d) { return x(d.tsne_glyph_x_level2); } )
+    .attr("cy", function (d) { return y(d.tsne_glyph_y_level2); } )
+    .attr("r", function (d) { 
+            if(d.name=="Amadeus") return 20;
+             else if(d.name=="The Homecoming: A Christmas Story") return 20;
+             else if(d.name=="North by Northwest") return 20;
+             else if(d.name=="Winter Light") return 20;
+             else if(d.name=="Jigarthanda") return 20;
+             else if(d.name=="Random Harvest") return 20;
+             else if(d.name=="A Tree Grows in Brooklyn") return 20;
+             else return 5;
+     } )
+    .style("fill", function (d) { return myColor(d.emotion_color_lvl2); } )
+  // -3- Trigger the functions
+  .on("mouseover", showTooltip )
+  .on("mousemove", moveTooltip )
+  .on("mouseleave", hideTooltip )
+  .on('click', function(dx) {    
+    document.getElementById("surprise_container").style.display = 'block';
+              document.getElementById("clear_surprise_radar").style.display='block';
+       anychart.onDocumentReady(function (d) {
+         if(surprise_count <3){
+          surprise_count++;
+let surprise_emotion1=  parseFloat(dx.signature_zscore_percent_anger).toFixed(2);
+let surprise_emotion2 =  parseFloat(dx.signature_zscore_percent_anticipation).toFixed(2);
+let surprise_emotion3 =  parseFloat(dx.signature_zscore_percent_disgust).toFixed(2);
+let surprise_emotion4 =  parseFloat(dx.signature_zscore_percent_fear).toFixed(2);
+let surprise_emotion5 =  parseFloat(dx.signature_zscore_percent_joy).toFixed(2);
+let surprise_emotion6 =  parseFloat(dx.signature_zscore_percent_sadness).toFixed(2);
+let surprise_emotion7 =  parseFloat(dx.signature_zscore_percent_surprise).toFixed(2);
+let surprise_emotion8 =  parseFloat(dx.signature_zscore_percent_trust).toFixed(2);
+             var  surprise_data1 = [
+
+                 {x: "anger", value: surprise_emotion1},
+                 {x: "anticipation", value: surprise_emotion2},
+                 {x: "disgust", value: surprise_emotion3},
+                 {x: "fear", value:  surprise_emotion4},
+                 {x: "joy", value:  surprise_emotion5},
+                 {x: "sadness", value: surprise_emotion6},
+                 {x: "surprise", value: surprise_emotion7},
+                 {x: "trust", value:  surprise_emotion8},
+             ]; 
+var  surprise_movie_name = dx.name;
+var  surprise_movie_rating= dx.movie_rating;
+var  surprise_movie_directors= dx.movie_directors;
+var  surprise_movie_writers= dx.movie_writers;
+var  surprise_movie_stars= dx.movie_stars;
+var  surprise_movie_genres = dx.movie_genres;
+
+
+let movies_details_surprise =  'Movie '+ surprise_count+'\n\n\nName: '+ surprise_movie_name .substring(0,25)+
+'\n'+ surprise_movie_name.substring(25,)+'\n'+'\n'+'Genre: '+  surprise_movie_genres +'\n'+'\n'+
+'Directors: ' + surprise_movie_directors.substring(0,20)+'\n'+
+surprise_movie_directors.substring(20,51)+'\n'+
+surprise_movie_directors.substring(51,)+'\n'+
+'Writers: '+ surprise_movie_writers.substring(0,22)+'\n'+
+surprise_movie_writers.substring(22,53)+'\n'+
+surprise_movie_writers.substring(53,)+'\n'+
+'\n'+'Stars: '+
+surprise_movie_stars.substring(0,24)+'\n'+
+surprise_movie_stars.substring(24,55)+'\n'+
+surprise_movie_stars.substring(55,)+'\n';
+
+surprisechart.title("Movies Details").legend(true);   
+ surprisechart.yScale()
+.minimum(0)
+.maximum(1)
+.ticks({'interval':8});
+
+var surprise_radar_title = surprisechart.title();
+surprise_radar_title .enabled(true);
+surprise_radar_title .padding(5);
+surprise_radar_title .fontColor("#336699");
+surprise_radar_title .fontSize(18);
+surprise_radar_title  .fontWeight(600);
+surprisechart .tooltip().padding().left(20);
+surprisechart .tooltip().background().fill("#ccccff");
+surprisechart .tooltip().format("{{value}}");
+
+ surprisechart.yGrid().palette(["gray 0.1", "gray 0.2"]);
+if( surprise_count == 1){
+
+   surprisechart.area( surprise_data1).name(movies_details_surprise).fill("#008080", 0.3).stroke("#008080");
+}
+if( surprise_count == 2){
+ surprisechart.area( surprise_data1).name(movies_details_surprise).fill("#FFBF00", 0.3).stroke("#FFBF00");
+}
+if( surprise_count == 3){
+   surprisechart.area( surprise_data1).name(movies_details_surprise).fill("#FF7F50", 0.3).stroke("#FF7F50");
+}
+
+surprisechart.container('surprise_container');
+surprise_legend.fontColor("#000000");
+surprisechart.draw();
+}
+     else
+   {
+
+     alert("You cannot choose more than 3 movies");
+   } });
+    }   );
+
+    
+     // Set the zoom and Pan features: how much you can zoom, on which part, and what to do when there is a zoom
+  var zoom = d3.zoom()
+  .scaleExtent([.1, 15000])  // This control how much you can unzoom (x0.5) and zoom (x20)
+      .extent([[-100, -100], [width_surprise, height_surprise]])
+      .on("zoom", updateChart);
+
+ zoom(surprise_svg);
+  // now the user can zoom and it will trigger the function called updateChart
+
+  // A function that updates the chart when the user zoom and thus new boundaries are available
+  function updateChart() {
+
+    // recover the new scale
+    var newX = d3.event.transform.rescaleX(x);
+    var newY = d3.event.transform.rescaleY(y);
+
+    // update axes with these new boundaries
+    xAxis.call(d3.axisBottom(newX))
+    yAxis.call(d3.axisLeft(newY))
+
+    // update circle position
+    scatter
+      .selectAll("circle")
+      .attr('cx', function(d) {return newX(d.tsne_glyph_x_level2)})
+      .attr('cy', function(d) {return newY(d.tsne_glyph_y_level2)});
+  }
+})
+
+$(document).on("click",'[id^="ac_rect_"]',function() {
+  alert("you are removing/adding the movie from the radar, you can display it back by clicking on the checkbox near:Movie #")
+});
+
+          </script>
+          <script>
+  function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  }
+  function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+  }
+function alertFunction(){
+    var x = document.getElementById("alert");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  
+        </script>
+
+        </head>
+<body class="background">
+              <!-- ------------------------ popups for help button --------------------------------  -->
+<div class="popupclickfilter" id="popupclickfilter">
+  
+  <p style="font-size:15px;">   You can click on the icon to open or close the filters form.</p>
+  <button class="skipclick" style="text-decoration: underline;" onclick="popupclickfilterFunctions()">Skip</button>
+  <button class="continueclick" onclick="popupHelpGroupFunction()">Continue</button>
+  <div class = "containt">   
+    
+  </div>
+</div>
+            <!-- ------------------------ popups for help button --------------------------------  -->
+<div class="popupHelpGrioup" id="popupHelpGrioup">
+  
+  <p style="font-size:15px;"> You can turn on the CLUSTER ZOOMING button to categorize each emotion individually.</p>
+  <button class="skipGroup" style="text-decoration: underline;" onclick="popupHelpGroupFunctions()">Skip</button>
+  <button class="continueGroup" onclick="popupPropertiesFunction()">Continue</button>
+  <div class = "containt">   
+    
+  </div>
+</div>
+
+<!--  properties popup -->
+<div class="popupProperties" id="popupProperties">
+  <p style="font-size:15px;"> You can search for a movie by title,director,star,genre,word or string in a review,
+  but don't forget to click on "Filter" button. </p>
+  <button class="skipProperties" style="text-decoration: underline;" onclick="popupPropertiesFunctions()">Skip</button>
+  <button class="continueProperties"  onclick="popupCleanFunction()">Continue</button>
+</div>
+
+<!--  clean popup -->
+<div class="popupClean" id="popupClean">
+  <p style="font-size:15px;"> You can reload the original map by clicking the "Clear" button.</p>
+  <button class="skipClean" style="text-decoration: underline;" onclick="popupCleanFunctions()">Skip</button>
+  <button class="continueClean"  onclick="popupzoomFunction()">Continue</button>
+</div>
+<!--  zoom popup -->
+<div class="popupzoom" id="popupzoom">
+  <p style="font-size:15px;"> You can zoom-in or zoom-out. just make sure the curser is on any nodes frame. </p>
+    <button class="skipzoom" style="text-decoration: underline;" onclick="popupzoomFunctions()">Skip</button>
+  <button class="continuezoom"  onclick="popupRadarFunction()">Continue</button>
+</div>
+<!--  radar popup -->
+<div class="popupRadar" id="popupRadar">
+  <p style="font-size:15px;"> You can press on any node to open the radar.
+    In addition, you can choose up to three nodes to compare the movies. </p>
+    <button class="skipRadar" style="text-decoration: underline;" onclick="popupRadarFunctions()">close</button>
+</div>
+
+    <button class="aboutbutton" id="about" onclick ="alertFunction()">
+      <img src="../static/img/about.png" height ="36" width="36" />
+    </button>
+    <button class="helpbutton" id="help">
+    <img src="../static/img/help.png" height ="40" width="40" />
+    </button> 
+    <button class="filterIcon" id="filterIcon" onclick ="filter_buttons()">
+      <img src="../static/img/filters.png" height ="30" width="30" />
+    </button>
+    <div class="alert" id="alert" >
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <p class = "adress">ABOUT</p>
+    <div class = "containt">   
+    <p>Visualization for interactive search and browsing movies according to reviews written on them.</p>
+     <p>This Map contains  nearly 17,000 movie between 1896 and 2020 from IMDB, that are grouped by the dominant emotion that has been extracted from the movie's reviews.
+      Users can view for each movie: name, poster and rating.</p> 
+     <p>The points are clickable you can view more metrics and details about the movie, in addition to comparing between 3 chosen movies.</p>
+    </div>
+  </div>
+
+  <div  id="filtersform"  style="display:none;">
+    <main class="cd-main-content" style="width:210px; top:12%; height: 90%;position: fixed;">
+    <div class="cd-filter" >
+
+      <form:form method="post" action="" >
+            <div class="cd-filter-block">
+            <h4 class="filterByGroup" >Cluster zooming:</h4>
+            <div class="cd-filter-content">
+            <label class="switch">
+            <input type="checkbox" id="togBtn" value="false">
+            <div class="slider round" ></div>
+            </label>
+            </div></div>
+            <div class="cd-filter-block">
+            <h4 style="margin-left:-10px;font-size:12px;">Search for a movie by:</h4>
+            <div class="cd-filter-content">
+            <input id="title" name="title" type="search" placeholder="title" style="width:170px;margin-left:12px;">
+            <input id="director" name="director" type="search" placeholder="director" style="width:170px;margin-left:12px;">
+            <input id="star" name="star" type="search" placeholder="star" style="width:170px;margin-left:12px;">
+            <input id="genre" name="genre" type="search" placeholder="genre" style="width:170px;margin-left:12px;">
+            <input id="word" name="word" type="search" placeholder="string in a review" style="width:170px;margin-left:12px;">
+            </div> 
+            </div> 
+                <button class="filterbutton" type="submit" onclick="filter()" style="left:20%">Filter </button>
+                <button class="cleanbutton" type="submit" onclick="clean_filters()" style="left:50%">Clear</button>
+                <div class="exp">
+                  <p class="and" style="text-align:center;color:rgb(255, 0, 0);font-size: 14px;">Querying, please wait...</p>
+              </div>
+      </form>
+                </div> 
+  </main>
+</div>
+
+
+<script >
+
+function filter_buttons()
+{
+  if(document.getElementById("filtersform").style.display == 'none'){
+  document.getElementById("filtersform").style.display = 'block';
+  }
+  else {
+    document.getElementById("filtersform").style.display = 'none';
+  }
+}
+function back()
+{
+  document.getElementById("container").style.display = 'none';
+  document.getElementById("my_dataviz").style.display = 'none';
+  document.getElementById("chart").style.display = 'block';
+  document.getElementById("anger_chart").style.display = 'none';
+  document.getElementById("fear_chart").style.display = 'none';
+  document.getElementById("disgust_chart").style.display = 'none';
+  document.getElementById("surprise_chart").style.display = 'none';
+  document.getElementById("sadness_chart").style.display = 'none';
+  document.getElementById("trust_chart").style.display = 'none';
+  document.getElementById("anticipation_chart").style.display = 'none';
+  document.getElementById("joy_chart").style.display = 'none';
+  document.getElementById("sadness_container").style.display = 'none';
+  document.getElementById("surprise_container").style.display = 'none';
+  document.getElementById("anger_container").style.display = 'none';
+  document.getElementById("fear_container").style.display = 'none';
+  document.getElementById("disgust_container").style.display = 'none';
+  document.getElementById("anticipation_container").style.display = 'none';
+  document.getElementById("trust_container").style.display = 'none';
+  document.getElementById("joy_container").style.display = 'none';
+  document.getElementById("clear_fear_radar").style.display = 'none';
+  document.getElementById("clear_anticipation_radar").style.display = 'none';
+  document.getElementById("clear_disgust_radar").style.display = 'none';
+  document.getElementById("clear_joy_radar").style.display = 'none';
+  document.getElementById("clear_sadness_radar").style.display = 'none';
+  document.getElementById("clear_surprise_radar").style.display = 'none';
+  document.getElementById("clear_trust_radar").style.display = 'none';
+  document.getElementById("clear_anger_radar").style.display = 'none';
+  document.getElementById("angerlegend").style.display = 'none';
+  document.getElementById("anticipationlegend").style.display = 'none';
+  document.getElementById("disgustlegend").style.display = 'none';
+  document.getElementById("fearlegend").style.display = 'none';
+  document.getElementById("joylegend").style.display = 'none';
+  document.getElementById("sadnesslegend").style.display = 'none';
+  document.getElementById("surpriselegend").style.display = 'none';
+  document.getElementById("trustlegend").style.display = 'none';
+  document.getElementById("filtersform").style.display = 'block';
+}
+        var switchStatus = false;
+        $("#togBtn").on('change', function() {
+        if ($(this).is(':checked')) {
+        switchStatus = $(this).is(':checked');
+        document.getElementById("chart").style.display = 'block';
+        document.getElementById("my_dataviz").style.display = 'none';
+        document.getElementById("mainlegend").style.display = 'none';
+        document.getElementById("container").style.display = 'none';
+        document.getElementById("clear_radar").style.display='none';
+        document.getElementById("clear_fear_radar").style.display='none';
+        document.getElementById("anger_container").style.display = 'none';
+  document.getElementById("anticipation_container").style.display = 'none';
+  document.getElementById("disgust_container").style.display = 'none';
+  document.getElementById("fear_container").style.display = 'none';
+
+  document.getElementById("sadness_container").style.display = 'none';
+  document.getElementById("surprise_container").style.display = 'none';
+  document.getElementById("joy_container").style.display = 'none';
+  document.getElementById("trust_container").style.display = 'none';
+        document.getElementById("anger_chart").style.display = 'none';
+        document.getElementById("fear_chart").style.display = 'none';
+        document.getElementById("disgust_chart").style.display = 'none';
+        document.getElementById("surprise_chart").style.display = 'none';
+        document.getElementById("sadness_chart").style.display = 'none';
+        document.getElementById("trust_chart").style.display = 'none';
+        document.getElementById("anticipation_chart").style.display = 'none';
+        document.getElementById("joy_chart").style.display = 'none';
+
+        sim.force("x", d3.forceX(function (d) {
+          margin = 110
+          mar = 70
+          if (d.emotion_color== "1")
+          return margin*1-mar-20;
+          if (d.emotion_color== "2")
+          return margin*2-mar;
+          if (d.emotion_color == "3")
+          return margin*3-mar;
+          if (d.emotion_color == "4")
+          return margin*4-mar;
+          if (d.emotion_color == "5")
+          return margin*5-mar;
+          if (d.emotion_color == "6")
+          return margin*6-mar;
+          if (d.emotion_color== "7")
+          return margin*7-mar+10;
+          if (d.emotion_color== "8")
+          return margin*8-mar+30;
+          }).strength(0.9)).alpha(0.5).restart()
+
+    }
+    else {
+       switchStatus = $(this).is(':checked');
+      if(count != 0){
+     document.getElementById("container").style.display = 'block';
+     document.getElementById("clear_radar").style.display='block';
+      }
+      else
+      {
+        document.getElementById("container").style.display = 'none';
+     document.getElementById("clear_radar").style.display='none';
+     document.getElementById("clear_fear_radar").style.display='none';
+
+      }
+      document.getElementById("mainlegend").style.display = 'none';
+  document.getElementById("mainlegend").style.display = 'block';
+  document.getElementById("anger_container").style.display = 'none';
+  document.getElementById("anticipation_container").style.display = 'none';
+  document.getElementById("disgust_container").style.display = 'none';
+  document.getElementById("fear_container").style.display = 'none';
+  document.getElementById("sadness_container").style.display = 'none';
+  document.getElementById("surprise_container").style.display = 'none';
+  document.getElementById("joy_container").style.display = 'none';
+  document.getElementById("trust_container").style.display = 'none';
+  document.getElementById("my_dataviz").style.display = 'block';
+  document.getElementById("chart").style.display = 'none';
+  document.getElementById("anger_chart").style.display = 'none';
+  document.getElementById("fear_chart").style.display = 'none';
+  document.getElementById("disgust_chart").style.display = 'none';
+  document.getElementById("surprise_chart").style.display = 'none';
+  document.getElementById("sadness_chart").style.display = 'none';
+  document.getElementById("trust_chart").style.display = 'none';
+  document.getElementById("anticipation_chart").style.display = 'none';
+  document.getElementById("joy_chart").style.display = 'none';
+  document.getElementById("fearlegend").style.display = 'none';
+  document.getElementById("angerlegend").style.display = 'none';
+  document.getElementById("anticipationlegend").style.display = 'none';
+  document.getElementById("joylegend").style.display = 'none';
+  document.getElementById("surpriselegend").style.display = 'none';
+  document.getElementById("sadnesslegend").style.display = 'none';
+  document.getElementById("trustlegend").style.display = 'none';
+  document.getElementById("disgustlegend").style.display = 'none';
+    }
+});
+
+function filter()
+{
+  var hid = document.getElementsByClassName("exp");
+    if(hid[0].offsetWidth > 0 && hid[0].offsetHeight > 0) {
+        hid[0].style.visibility = "visible";
+    }
+
+  var title = document.getElementById("title").value;
+  var director = document.getElementById("director").value;
+  var star= document.getElementById("star").value;
+  var genre = document.getElementById("genre").value;
+  var word = document.getElementById("word").value;
+  var numberofmap = -1;
+  if(document.getElementById("my_dataviz").style.display != null)
+  {
+    numberofmap = 0;
+  }
+  else if (document.getElementById("anger_chart").style.display != null)
+  {
+    numberofmap = 1;
+  }
+  else if (document.getElementById("anticipation_chart").style.display != null)
+  {
+    numberofmap = 2;
+  }
+  else if (document.getElementById("disgust_chart").style.display != null)
+  {
+    numberofmap = 3;
+  }
+  else if (document.getElementById("fear_chart").style.display != null)
+  {
+    numberofmap = 4;
+  }
+  else if (document.getElementById("joy_chart").style.display != null)
+  {
+    numberofmap = 5;
+  }
+  else if (document.getElementById("sadness_chart").style.display != null)
+  {
+    numberofmap = 6;
+  }
+  else if (document.getElementById("surprise_chart").style.display != null)
+  {
+    numberofmap = 7;
+  }
+  else if (document.getElementById("trust_chart").style.display != null)
+  {
+    numberofmap = 8;
+  }
+  //sent this data to flask
+var data_flask = {
+    'title': title,
+    'director': director,
+    'star' : star,
+    'genre' : genre,
+    'word' : word,
+    'numberofmap' : numberofmap
+    }
+    console.log(data_flask);
+  $.ajax({
+  url: "/",
+  type: "POST",
+  contentType: "application/json",
+  data: JSON.stringify(data_flask),   // converts js value to JSON string
+})
+  .done(function(result){     // on success get the return object from server
+      console.log(result)     // do whatever with it. In this case see it in console
+  });
+ 
+  setTimeout(function(){
+   window.location.reload();
+}, 5000);
+}
+function clean_filters()
+{
+  var hid = document.getElementsByClassName("exp");
+    if(hid[0].offsetWidth > 0 && hid[0].offsetHeight > 0) {
+        hid[0].style.visibility = "visible";
+    }
+  document.getElementById("title").value='';
+  document.getElementById("director").value='';
+  document.getElementById("star").value='';
+  document.getElementById("genre").value='';
+  document.getElementById("word").value='';
+  var data_flask = {
+    'title': '',
+    'director': '',
+    'star' : '',
+    'genre' : '',
+    'word' : '',
+    'numberofmap' : -1
+    }
+    console.log(data_flask);
+  $.ajax({
+  url: "/",
+  type: "POST",
+  contentType: "application/json",
+  data: JSON.stringify(data_flask),   // converts js value to JSON string
+  })
+  .done(function(result){     // on success get the return object from server
+      console.log(result)     // do whatever with it. In this case see it in console
+  });
+    
+  setTimeout(function(){
+   window.location.reload();
+}, 5000);
+}
+</script> 
+</body>
+</html>
