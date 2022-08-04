@@ -3,12 +3,29 @@
 "מערכת UX לחקר אינטראקטיבי של סרטים לפי הסקירות הנכתבות עליהם.
 שואפים לספק דרך שתאפשר למשתמשים להציג ולעיין בסדרת סרטים בהתאם לרגשות המובחרים של הסרטים, כפי שנצפה בסקירות המקוונות של הסרטים.
 "
-בנוסף לכך הפרויקט נמצא ב server :
+
+- הפרויקט נמצא ב server :
+
 User:   ossi
+
 Pass:   R119#p875
+
 אפשר להשתמש במערכת דרך הקישור הבא  : 
+
 http://35.223.110.133:5000
 
+הפרויקט נמצא בתיקיה בשם flask-app 
+
+בתוך התיקיה יש קובץ flask 
+בשם flask-server
+ושני תיקיות עיקריות :
+
+1-templated :יש בה קובץ html
+
+2-static :יש קבצי css,images
+- הדאטה נמצאת ב MYSQL.
+
+-
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
