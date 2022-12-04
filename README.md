@@ -25,6 +25,15 @@ http://35.223.110.133:5000
 2-static :יש קבצי css,images
 - הדאטה נמצאת ב MYSQL.
 
+* צד השרת (Backend)
+  
+1.	שימוש במונגו שמכיל כל הסרטים והנתונים עליהם, כמו שם סרט , שם במאי, שם שחקנים , חתימה רגשית וכו,
+mongodb+srv://liorlansman:lior1989@emotionsinmovies.sykue.mongodb.net/emotionsdbnew?retryWrites=true&w=majority 
+2.	טעינת קבצי התגובות עבור כל סרט למונגו לוקאלי שנמצא על השרת בעזרת פונקציות של פיתון (mongodb://localhost:27017)
+קובץ ZIP המכיל מעל 20500 קבצי JSON, כאשר כל קובץ JSON מתייחס לסרט מסוים ומכיל את כל הביקורות של אותו הסרט. שם כל קובץ הוא לפי הIMDB ID של אותו הסרט.
+3.	תשאול המונגו ע"י פונקציות שנמצאות בקובץ mongo_functions.py
+
+
 -
 ## Getting started
 
